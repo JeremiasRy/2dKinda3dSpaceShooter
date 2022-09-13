@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2dKinda3dSpaceShooter", "2dKinda3dSpaceShooter\2dKinda3dSpaceShooter.csproj", "{ED6CBB3E-D10B-4606-8FF2-3A6299BCA88C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine", "GameEngine\GameEngine.csproj", "{7BD6A055-F44D-41A0-B5C0-0585033EE086}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED6CBB3E-D10B-4606-8FF2-3A6299BCA88C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED6CBB3E-D10B-4606-8FF2-3A6299BCA88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED6CBB3E-D10B-4606-8FF2-3A6299BCA88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED6CBB3E-D10B-4606-8FF2-3A6299BCA88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD6A055-F44D-41A0-B5C0-0585033EE086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD6A055-F44D-41A0-B5C0-0585033EE086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD6A055-F44D-41A0-B5C0-0585033EE086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD6A055-F44D-41A0-B5C0-0585033EE086}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BDA76C52-20E4-467B-8144-45746067099F}
+	EndGlobalSection
+EndGlobal
