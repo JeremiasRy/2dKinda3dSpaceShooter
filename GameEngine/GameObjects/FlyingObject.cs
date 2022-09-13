@@ -18,17 +18,10 @@ namespace GameEngine
 
         public void Draw()
         {
-            var multiplier = Z / 100;
-            var sizeCalcWidth = Width * multiplier;
-            var sizeCalcHeight = Height * multiplier;
+            var _multiplier = Z / 100;
+            var _sizeCalcWidth = Width * _multiplier;
+            var _sizeCalcHeight = Height * _multiplier;
 
-            for (int i = 0; i < sizeCalcWidth; i++)
-            {
-                for (int j = 0; j < sizeCalcHeight; j++)
-                {
-                    ScreenBuffer.Draw('@', Y + j, X + i);
-                }
-            }
         }
 
         public void Move()

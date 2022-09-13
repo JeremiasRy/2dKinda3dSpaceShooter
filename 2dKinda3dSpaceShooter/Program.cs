@@ -18,6 +18,5 @@ while (true)
     flyingObject.Move();
     flyingObject.Draw();
     ScreenBuffer.DrawScreen();
-
 }
 
