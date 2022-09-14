@@ -8,32 +8,39 @@ namespace GameEngine;
 
 public static class GameState
 {
+    static Random _random = new();
     public static bool PlayerAlive { get; set; }
 
-    public static List<FlyingObject> FlyingObjects = new List<FlyingObject>();
+    static List<IGameObject> _gameObjects = new();
 
-    public static void AddFlyingObject()
+    public static int[] CalculateTopLeft(int y, int x, int height, int width)
     {
-        FlyingObjects.Add(new FlyingObject());
+        return new int[2] { y - height / 2, x - width / 2 };
+    }
+
+    public static void AddEnemyObject(int id)
+    {
+        _gameObjects.Add(new Enemy(
+            id,
+            Console.WindowHeight / 2,
+            Console.WindowWidth / 2,
+            1,
+            _random.Next(Console.WindowHeight),
+            _random.Next(Console.WindowWidth),
+            new EnemyGraphics()));
     }
 
     public static void CheckForObjectsOutOfRange()
     {
-        List<int> removeThese = new();
-        foreach (FlyingObject obj in FlyingObjects)
-        {
-            if (obj.Z == 100)
-                removeThese.Add(obj.Id);
-        }
-        foreach(int id in removeThese)
-            FlyingObjects = FlyingObjects.Where(obj => obj.Id != id).ToList();
     }
     public static void GameTick()
     {
-        foreach (FlyingObject obj in FlyingObjects)
+        foreach (var obj in _gameObjects)
+        {
             obj.Move();
+        }
         CheckForObjectsOutOfRange();
-        foreach (FlyingObject obj in FlyingObjects)
+        foreach (var obj in _gameObjects)
             obj.Draw();
     }
 }

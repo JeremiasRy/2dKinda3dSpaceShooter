@@ -8,13 +8,9 @@ namespace GameEngine;
 
 public interface IGameObject
 {
-    public int Id { get; set; } 
     public int X { get; set; }
     public int Y { get; set; }
     public int Z { get; set; }
-
-    public int Width { get; set; }
-    public int Height { get; set; }
 
     public void Draw();
     public void Move();

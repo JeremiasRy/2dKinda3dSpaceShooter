@@ -8,20 +8,45 @@ Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 MoveWindowTopLeftCorner();
 ScreenBuffer.Initialize();
 Console.CursorVisible = false;
-AddFlyingObject();
 
-int count = 0;
+int enemyCount = 0;
 
-while (true)
+Task runGame = new(RunGame);
+Task userInput = new(UserInput);
+
+runGame.Start();
+userInput.Start();
+
+Task[] tasks = new [] { runGame, userInput };
+Task.WaitAll(tasks);
+
+
+void UserInput()
 {
-    if (count == 10)
+    while (true)
     {
-        AddFlyingObject();
-        count = 0;
+
     }
-    Thread.Sleep(20);
-    GameTick();
-    ScreenBuffer.DrawScreen();
-    count++;
 }
+
+void RunGame()
+{
+    int count = 0;
+    while (true)
+    {
+        count++;
+        if (count == 10)
+        {
+            enemyCount++;
+            AddEnemyObject(enemyCount);
+            count = 0;
+
+        }
+        Thread.Sleep(20);
+        GameTick();
+        ScreenBuffer.DrawText(enemyCount.ToString(), 0, 0);
+        ScreenBuffer.DrawScreen();
+    }
+}
+
 
