@@ -37,7 +37,7 @@ namespace GameEngine
         public static void DrawScreen()
         {
             Console.SetCursorPosition(0, 0);
-            for (int y = 0; y < 50; y++)
+            for (int y = 0; y < _screenBufferArray.Length; y++)
             {
                 Console.WriteLine(_screenBufferArray[y]);
             }
@@ -45,9 +45,9 @@ namespace GameEngine
         }
         static void Clear()
         {
-            for (int y = 0; y < 50; y++)
+            for (int y = 0; y < _screenBufferArray.Length; y++)
             {
-                for (int x = 0; x < 200; x++)
+                for (int x = 0; x < _screenBufferArray[y].Length; x++)
                 {
                     _screenBufferArray[y][x] = _whiteSpace;
                 }
