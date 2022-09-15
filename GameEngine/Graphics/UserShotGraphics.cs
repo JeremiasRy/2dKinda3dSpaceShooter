@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngine.Graphics
+namespace GameEngine;
+
+public class UserShotGraphics : IGraphics
 {
-    internal class UserShotGraphics : IGraphics
-    {
-        public int Width { get; set; } = 3;
-        public int Height { get; set; } = 3;
-        public char MainSurface { get; set; } = '\u2588';
-        public char Shadow { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    }
+    public int Width { get; set; } = 3;
+    public int Height { get; set; } = 3;
+    public char MainSurface { get; set; } = '\u2588';
+    public char Shadow { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 }

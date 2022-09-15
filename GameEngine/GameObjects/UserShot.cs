@@ -12,10 +12,13 @@ public class UserShot : MovesOnGameTick
     public override void Move()
     {
         if (Z - 1 < 0)
+        {
+            Z = -1;
             return;
+        }
         Z--;
     }
-    public UserShot(int id, int y, int x, int z, IGraphics graphics, int endY, int endX) : base(id, y, x, z, endY, endX, graphics)
+    public UserShot(int id, int y, int x, int z, int endY, int endX, IGraphics graphics)
     {
     }
 }

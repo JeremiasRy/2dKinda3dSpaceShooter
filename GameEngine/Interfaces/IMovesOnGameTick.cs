@@ -8,6 +8,5 @@ namespace GameEngine;
 
 public interface IMovesOnGameTick
 {
-    public int Id { get; set; }
     public void CalculateTrajectory(int endPointY, int endPointX);
 }

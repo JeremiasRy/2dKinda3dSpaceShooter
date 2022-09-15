@@ -8,19 +8,8 @@ namespace GameEngine;
 
 public class MovesOnGameTick : GameObject, IMovesOnGameTick
 {
-    readonly Dictionary<int, int[]> trajectory = new(); //Key Z coordinate, Value Y and X points;
-    public int Id { get; set; }
-    public MovesOnGameTick(int id, int y, int x, int z, int endY, int endX, IGraphics graphics) : base(x,y,z,graphics)
-    {
-        Id = id;
-        X = x;
-        Y = y;
-        Z = z;
-        Graphics = graphics;
-        CalculateTrajectory(endY, endX);
-    }
-
-    public virtual void CalculateTrajectory(int endPointY, int endPointX)
+    readonly public Dictionary<int, int[]> Trajectory = new(); //Key Z coordinate, Value Y and X points;
+    public void CalculateTrajectory(int endPointY, int endPointX)
     {
         bool _yUp = Y > endPointY;
         bool _xLeft = X > endPointX;
@@ -41,7 +30,7 @@ public class MovesOnGameTick : GameObject, IMovesOnGameTick
             else
                 xPoint = (int)(X + _xDifference * _percent);
 
-            trajectory.Add(i, new int[2] { yPoint, xPoint });
+            Trajectory.Add(i, new int[2] { yPoint, xPoint });
         }
     }
 
