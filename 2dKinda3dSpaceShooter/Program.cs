@@ -10,6 +10,7 @@ ScreenBuffer.Initialize();
 Console.CursorVisible = false;
 
 int enemyCount = 0;
+int tick = 0;
 
 Task runGame = new(RunGame);
 Task userInput = new(UserInput);
@@ -23,28 +24,45 @@ Task.WaitAll(tasks);
 
 void UserInput()
 {
-    while (true)
+    ConsoleKeyInfo key = new();
+    while (!Console.KeyAvailable && key.Key != ConsoleKey.Escape)
     {
-
+        key = Console.ReadKey(true);
+        switch(key.Key)
+        {
+            case ConsoleKey.UpArrow:
+                MovePlayer(-2, 0);
+                break;
+            case ConsoleKey.DownArrow:
+                MovePlayer(2, 0);
+                break;
+            case ConsoleKey.LeftArrow:
+                MovePlayer(0, -3);
+                break;
+            case ConsoleKey.RightArrow:
+                MovePlayer(0, 3);
+                break;
+            case ConsoleKey.Spacebar:
+                PlayerShoot(tick);
+                break;
+        }
     }
 }
 
 void RunGame()
 {
-    int count = 0;
+    AddHumanPlayer();
     while (true)
     {
-        count++;
-        if (count == 10)
+        tick++;
+        if (tick % 20 == 0)
         {
             enemyCount++;
             AddEnemyObject(enemyCount);
-            count = 0;
-
         }
-        Thread.Sleep(20);
+        Thread.Sleep(1000 / 60);
         GameTick();
-        ScreenBuffer.DrawText(enemyCount.ToString(), 0, 0);
+        ScreenBuffer.DrawText($"Tick {tick}, EnemyCount: {enemyCount}", 0, 0);
         ScreenBuffer.DrawScreen();
     }
 }

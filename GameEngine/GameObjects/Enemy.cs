@@ -7,8 +7,12 @@ using GameEngine;
 
 namespace GameEngine;
 
-public class Enemy : MovesOnGameTick
+public class Enemy : GameObject
 {
+    readonly int _startPointY;
+    readonly int _startPointX;
+    readonly int _endPointY;
+    readonly int _endPointX;
     public override void Move()
     {
         if (Z + 1 > 100)
@@ -17,8 +21,9 @@ public class Enemy : MovesOnGameTick
             return;
         }
         Z++;
-        Y = Trajectory[Z][0];
-        X = Trajectory[Z][1];
+        var positions = GameState.CalculatePosition(_startPointY, _startPointX, _endPointY, _endPointX, Z);
+        Y = positions[0];
+        X = positions[1];
     }
     public override void Draw()
     {
@@ -35,13 +40,16 @@ public class Enemy : MovesOnGameTick
             }
         }
     }
-    public Enemy(int id, int y, int x, int z, int endY, int endX)
+    public Enemy(int id, int y, int x, int z, int endY, int endX, IGraphics graphics) : base(graphics)
     {
         Id = id;
         Y = y;
         X = x;
         Z = z;
-        CalculateTrajectory(endY, endX);
-        Graphics = new EnemyGraphics(1);
+        _startPointY = y;
+        _startPointX = x;
+        _endPointY = endY;
+        _endPointX = endX;
+        UserControl = false;
     }
 }

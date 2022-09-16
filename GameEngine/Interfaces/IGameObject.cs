@@ -12,6 +12,9 @@ public interface IGameObject
     public int X { get; set; }
     public int Y { get; set; }
     public int Z { get; set; }
+    public bool UserControl { get; set; }
+
+    public IGraphics Graphics { get; set; }
 
     public void Draw();
     public void Move();
