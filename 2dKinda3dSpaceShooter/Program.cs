@@ -1,6 +1,7 @@
 ﻿using GameEngine;
 using static GameEngine.WindowUtility;
 using static GameEngine.GameState;
+using static GameEngine.KeyboardControls;
 
 if (!OperatingSystem.IsWindows())
     return;
@@ -11,43 +12,28 @@ Console.CursorVisible = false;
 
 int enemyCount = 0;
 int tick = 0;
-
 Task runGame = new(RunGame);
 Task userInput = new(UserInput);
 
 runGame.Start();
 userInput.Start();
 
-Task[] tasks = new [] { runGame, userInput };
+Task[] tasks = new [] { runGame, userInput, };
 Task.WaitAll(tasks);
+
 
 
 void UserInput()
 {
-    ConsoleKeyInfo key = new();
-    while (!Console.KeyAvailable && key.Key != ConsoleKey.Escape)
+    while (true)
     {
-        key = Console.ReadKey(true);
-        switch(key.Key)
-        {
-            case ConsoleKey.UpArrow:
-                MovePlayer(-2, 0);
-                break;
-            case ConsoleKey.DownArrow:
-                MovePlayer(2, 0);
-                break;
-            case ConsoleKey.LeftArrow:
-                MovePlayer(0, -3);
-                break;
-            case ConsoleKey.RightArrow:
-                MovePlayer(0, 3);
-                break;
-            case ConsoleKey.Spacebar:
-                PlayerShoot(tick);
-                break;
-        }
+        if (CheckKeyPress(ConsoleKey.UpArrow))
+            MovePlayer(-2, 0);
+        if (CheckKeyPress(ConsoleKey.LeftArrow))
+            MovePlayer(0, -2);
     }
 }
+
 
 void RunGame()
 {
