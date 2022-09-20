@@ -27,9 +27,9 @@ public class UserShot : GameObject
         var positions = GameState.CalculatePosition(_endPointY, _endPointX, _startPointY, _startPointX, Z);
         Y = positions[0];
         X = positions[1];
-        ScreenBuffer.Draw(Graphics.MainSurface, Y, X);
+        ScreenBuffer.Draw('a', Y, X);
     }
-    public UserShot(int id, int y, int x, int z, int endY, int endX, IGraphics graphics) : base(graphics)
+    public UserShot(int id, int y, int x, int z, int endY, int endX, IGraphics graphics) : base(id, graphics)
     {
         Id = id;
         Y = y;

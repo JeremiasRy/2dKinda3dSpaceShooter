@@ -13,43 +13,45 @@ public class Enemy : GameObject
     readonly int _startPointX;
     readonly int _endPointY;
     readonly int _endPointX;
+    readonly int _speed;
+
+    Random _random = new();
     public override void Move()
     {
-        if (Z + 1 > 100)
+        if (Z + _speed > 100)
         {
             Z = 101;
             return;
         }
-        Z++;
+        Z += _speed;
         var positions = GameState.CalculatePosition(_startPointY, _startPointX, _endPointY, _endPointX, Z);
         Y = positions[0];
         X = positions[1];
     }
     public override void Draw()
     {
-        float depth = (float)Z / 100;
-        int height = (int)(Graphics.Height * depth);
-        int width = (int)(Graphics.Width * depth);
-
-        for (int iY = 0; iY < height; iY++)
+        char[][] graphic = Graphics.GetGraphic(Z);
+        for(int i = 0; i < graphic.Length; i++)
         {
-            for (int iX = 0; iX < width; iX++)
+            for(int j = 0; j < graphic[i].Length; j++)
             {
-                if (CheckIfOnConsoleWindow(Top+ iY, Left+ iX))
-                    ScreenBuffer.Draw(Graphics.MainSurface, Top+ iY, Left+ iX);
+                if (CheckIfOnConsoleWindow(Top + i, Left + j))
+                    ScreenBuffer.Draw(graphic[i][j], Top + i, Left + j);
             }
         }
+
     }
-    public Enemy(int id, int y, int x, int z, int endY, int endX, IGraphics graphics) : base(graphics)
+    public Enemy(int id, IGraphics graphics) : base(id, graphics)
     {
         Id = id;
-        Y = y;
-        X = x;
-        Z = z;
-        _startPointY = y;
-        _startPointX = x;
-        _endPointY = endY;
-        _endPointX = endX;
+        Y = GameState._centerHeight;
+        X = GameState._centerWidth;
+        Z = 1;
+        _startPointY = GameState._centerHeight;
+        _startPointX = GameState._centerWidth;
+        _endPointY = _random.Next(Console.WindowHeight);
+        _endPointX = _random.Next(Console.WindowWidth);
         UserControl = false;
+        _speed = _random.Next(1, 3);
     }
 }

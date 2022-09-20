@@ -12,26 +12,34 @@ Console.CursorVisible = false;
 
 int enemyCount = 0;
 int tick = 0;
+int consecutiveKeyPresses = 0;
 Task runGame = new(RunGame);
-Task userInput = new(UserInput);
 
 runGame.Start();
-userInput.Start();
-
-Task[] tasks = new [] { runGame, userInput, };
-Task.WaitAll(tasks);
+runGame.Wait();
 
 
 
-void UserInput()
+void UserInput() // negative integer is left or up, 0 means no movement on that plane and positive integer is right or down
 {
-    while (true)
+    if (KeyboardKeyDown())
     {
+        consecutiveKeyPresses++;
+        int speed = consecutiveKeyPresses < 6 ? 1 : consecutiveKeyPresses / 6 > 2 ? 2 : consecutiveKeyPresses / 6;
         if (CheckKeyPress(ConsoleKey.UpArrow))
-            MovePlayer(-2, 0);
+            MovePlayer(-1, 0, speed);
         if (CheckKeyPress(ConsoleKey.LeftArrow))
-            MovePlayer(0, -2);
+            MovePlayer(0, -1, speed + 1);
+        if (CheckKeyPress(ConsoleKey.RightArrow))
+            MovePlayer(0, 1, speed + 1);
+        if (CheckKeyPress(ConsoleKey.DownArrow))
+            MovePlayer(1, 0, speed);
+        if (CheckKeyPress(ConsoleKey.Spacebar))
+            PlayerShoot(tick);
+        return;
     }
+
+    consecutiveKeyPresses = 0;
 }
 
 
@@ -45,10 +53,15 @@ void RunGame()
         {
             enemyCount++;
             AddEnemyObject(enemyCount);
+        } else if (tick % 2 == 0)
+        {
+            AddIllusionParticle(tick);
+            AddIllusionParticle(tick);
         }
-        Thread.Sleep(1000 / 60);
+        Thread.Sleep(5);
         GameTick();
-        ScreenBuffer.DrawText($"Tick {tick}, EnemyCount: {enemyCount}", 0, 0);
+        UserInput();
+        ScreenBuffer.DrawText($"Tick {tick}, EnemyCount: {enemyCount}, consecutiveKeyPresses: {consecutiveKeyPresses}", 0, 0);
         ScreenBuffer.DrawScreen();
     }
 }

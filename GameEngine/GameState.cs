@@ -8,14 +8,14 @@ namespace GameEngine;
 
 public static class GameState
 {
-    static readonly int _centerHeight = Console.WindowHeight / 2;
-    static readonly int _centerWidth = Console.WindowWidth / 2;
+    static public readonly int _centerHeight = Console.WindowHeight / 2;
+    static public readonly int _centerWidth = Console.WindowWidth / 2;
 
     static Random _random = new();
     public static bool PlayerAlive { get; set; }
-    readonly static SpaceShip _humanPlayer = new(new SpaceShipGraphics());
+    readonly static SpaceShip _humanPlayer = new(0, new SpaceShipGraphics());
 
-    static List<IGameObject> _gameObjects = new();
+    static List<GameObject> _gameObjects = new();
     public static int[] CalculatePosition(int startPointY, int startPointX, int endPointY, int endPointX, int z)
     {
         bool yUp = startPointY > endPointY;
@@ -31,15 +31,19 @@ public static class GameState
     }
     public static void AddEnemyObject(int id)
     {
-        _gameObjects.Add(new Enemy(id,_centerHeight,_centerWidth,1,_random.Next(Console.WindowHeight), _random.Next(Console.WindowWidth), new EnemyGraphics(1)));
+        _gameObjects.Add(new Enemy(id, new EnemyGraphics()));
+    }
+    public static void AddIllusionParticle(int id)
+    {
+        _gameObjects.Add(new IllusionParticle(id, new IllusionGraphics()));
     }
     public static void AddHumanPlayer()
     {
         _gameObjects.Add(_humanPlayer);
     }
-    public static void MovePlayer(int y, int x)
+    public static void MovePlayer(int y, int x, int speed)
     {
-        _humanPlayer.ParseCoordinateInput(y, x);
+        _humanPlayer.ParseCoordinateInput(y, x, speed);
     }
     public static void PlayerShoot(int id)
     {
@@ -63,6 +67,9 @@ public static class GameState
                 obj.Move();           
         }
         CheckForObjectsOutOfRange();
-        _gameObjects.OrderBy(obj => obj.Z).ToList().ForEach(obj => obj.Draw());
+            
+        _gameObjects.Where(x => x is IllusionParticle).ToList().ForEach(obj => obj.Draw());
+
+        _gameObjects.Where(x => x is not IllusionParticle).OrderBy(obj => obj.Z).ToList().ForEach(obj => obj.Draw());
     }
 }

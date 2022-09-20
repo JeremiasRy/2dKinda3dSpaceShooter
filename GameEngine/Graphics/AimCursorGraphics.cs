@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GameEngine;
-public class SpaceShipGraphics : IGraphics
+
+public class AimCursorGraphics : IGraphics
 {
-    public int Width { get; set; } = 5;
-    public int Height { get; set; } = 3;
-    public char MainSurface { get; set; } = '#';
-    public char Shadow { get ; set; }
+    public int Width { get; set; }
+    public int Height { get; set; }
+    public char MainSurface { get; set; }
 
     public char[][] GetGraphic(int level)
     {

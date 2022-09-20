@@ -11,6 +11,5 @@ public interface IGraphics
     public int Width { get; set; }
     public int Height { get; set; }
 
-    public char MainSurface { get; set; }
-    public char Shadow { get; set; }
+    public char[][] GetGraphic(int level);
 }

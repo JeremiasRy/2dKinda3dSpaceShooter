@@ -12,4 +12,9 @@ public class UserShotGraphics : IGraphics
     public int Height { get; set; } = 3;
     public char MainSurface { get; set; } = '\u2588';
     public char Shadow { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+    public char[][] GetGraphic(int level)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -11,14 +11,20 @@ public class SpaceShip : GameObject
     int _moveToX;
     int _moveToY;
 
-    public void ParseCoordinateInput(int yChange, int xChange)
+    public void ParseCoordinateInput(int yDirection, int xDirection, int speed)
     {
-        if(CheckIfOnConsoleWindow(yChange + Y, xChange + X))
+        if (yDirection == 0)
         {
-            _moveToX = xChange + X;
-            _moveToY = yChange + Y;
+            _moveToY = Y;
+            _moveToX = xDirection < 0 ? X - speed : X + speed;
+        }
+        else if (xDirection == 0)
+        {
+            _moveToX = X;
+            _moveToY = yDirection < 0 ? Y - speed : Y + speed;
+        }
+        if (CheckIfOnConsoleWindow(_moveToY - Graphics.Height / 2, _moveToX - Graphics.Width / 2) && CheckIfOnConsoleWindow(_moveToY + Graphics.Height / 2, _moveToX + Graphics.Width / 2))
             Move();
-        };
     }
     public override void Move()
     {
@@ -31,13 +37,13 @@ public class SpaceShip : GameObject
         {
             for (int j = 0; j < Graphics.Width; j++)
             {
-                if (CheckIfOnConsoleWindow(Y + i, X + j))
-                    ScreenBuffer.Draw(Graphics.MainSurface, Y + i, X + j);
+                if (CheckIfOnConsoleWindow(Top + i, Left + j))
+                    ScreenBuffer.Draw('#', Top + i, Left + j);
             }
         }
         
     }
-    public SpaceShip(IGraphics graphics) : base(graphics) 
+    public SpaceShip(int id, IGraphics graphics) : base(id, graphics) 
     {
         X = Console.WindowWidth / 2;
         Y = Console.WindowHeight - 10;
