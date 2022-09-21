@@ -8,8 +8,10 @@ namespace GameEngine;
 
 public static class GameState
 {
-    static public readonly int _centerHeight = Console.WindowHeight / 2;
-    static public readonly int _centerWidth = Console.WindowWidth / 2;
+    
+    static public readonly int CenterHeight = Console.WindowHeight / 2;
+    static public readonly int CenterWidth = Console.WindowWidth / 2;
+    static public int Tick { get; set; }
 
     static Random _random = new();
     public static bool PlayerAlive { get; set; }
@@ -47,7 +49,7 @@ public static class GameState
     }
     public static void PlayerShoot(int id)
     {
-        _gameObjects.Add(new UserShot(id, _humanPlayer.Y, _humanPlayer.X, 100, _centerHeight, _centerWidth, new UserShotGraphics()));
+        _gameObjects.Add(new UserShot(id, _humanPlayer.Y, _humanPlayer.X, 100, CenterHeight, CenterWidth, new UserShotGraphics()));
     }
     public static void CheckForObjectsOutOfRange()
     {

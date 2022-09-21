@@ -44,11 +44,11 @@ public class Enemy : GameObject
     public Enemy(int id, IGraphics graphics) : base(id, graphics)
     {
         Id = id;
-        Y = GameState._centerHeight;
-        X = GameState._centerWidth;
+        Y = GameState.CenterHeight;
+        X = GameState.CenterWidth;
         Z = 1;
-        _startPointY = GameState._centerHeight;
-        _startPointX = GameState._centerWidth;
+        _startPointY = GameState.CenterHeight;
+        _startPointX = GameState.CenterWidth;
         _endPointY = _random.Next(Console.WindowHeight);
         _endPointX = _random.Next(Console.WindowWidth);
         UserControl = false;

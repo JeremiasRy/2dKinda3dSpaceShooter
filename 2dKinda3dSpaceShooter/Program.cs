@@ -49,6 +49,7 @@ void RunGame()
     while (true)
     {
         tick++;
+        Tick = tick;
         if (tick % 20 == 0)
         {
             enemyCount++;
@@ -56,9 +57,8 @@ void RunGame()
         } else if (tick % 2 == 0)
         {
             AddIllusionParticle(tick);
-            AddIllusionParticle(tick);
         }
-        Thread.Sleep(5);
+        Thread.Sleep(20);
         GameTick();
         UserInput();
         ScreenBuffer.DrawText($"Tick {tick}, EnemyCount: {enemyCount}, consecutiveKeyPresses: {consecutiveKeyPresses}", 0, 0);

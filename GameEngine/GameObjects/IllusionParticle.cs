@@ -33,7 +33,7 @@ public class IllusionParticle : GameObject
         if (CheckIfOnConsoleWindow(Y, X))
         {
             int grayness = Z < 15 ? 0 : Z / 15;
-            ScreenBuffer.Draw(Surfaces.GetParticleLevel(grayness), Y, X);
+            ScreenBuffer.Draw(CharacterArrays.GetParticle(grayness), Y, X);
         }
     }
     public IllusionParticle(int id, IGraphics graphics) : base(id, graphics)
