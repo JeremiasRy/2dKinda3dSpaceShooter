@@ -47,7 +47,7 @@ public class IllusionParticle : GameObject
         _startPointY = startPos[0];
         _startPointX = startPos[1];
 
-        if (X == Console.WindowWidth / 2 - 25 && Y >= Console.WindowHeight / 2 - 8 && Y <= Console.WindowHeight / 2 + 7)
+        if (X == Console.WindowWidth / 2 - 25 && Y >= Console.WindowHeight / 2 - 8 && Y <= Console.WindowHeight / 2 + 7) //Muuta kaikki arvot suhteellisiksi niin voi toimia muillakin koneilla
         {
             _endY = Y < Console.WindowHeight / 2 ? _random.Next(Console.WindowHeight / 2) : _random.Next(Console.WindowHeight / 2, Console.WindowHeight);
             _endX = 0;

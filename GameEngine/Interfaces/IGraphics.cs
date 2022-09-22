@@ -8,8 +8,8 @@ namespace GameEngine;
 
 public interface IGraphics
 {
-    public int Width { get; set; }
-    public int Height { get; set; }
+    public int Width { get; }
+    public int Height { get; }
 
     public char[][] GetGraphic(int level);
 }

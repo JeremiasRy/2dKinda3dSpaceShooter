@@ -58,7 +58,7 @@ void RunGame()
         {
             AddIllusionParticle(tick);
         }
-        Thread.Sleep(20);
+        Thread.Sleep(5);
         GameTick();
         UserInput();
         ScreenBuffer.DrawText($"Tick {tick}, EnemyCount: {enemyCount}, consecutiveKeyPresses: {consecutiveKeyPresses}", 0, 0);

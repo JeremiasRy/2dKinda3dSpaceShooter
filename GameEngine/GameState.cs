@@ -12,8 +12,6 @@ public static class GameState
     static public readonly int CenterHeight = Console.WindowHeight / 2;
     static public readonly int CenterWidth = Console.WindowWidth / 2;
     static public int Tick { get; set; }
-
-    static Random _random = new();
     public static bool PlayerAlive { get; set; }
     readonly static SpaceShip _humanPlayer = new(0, new SpaceShipGraphics());
 

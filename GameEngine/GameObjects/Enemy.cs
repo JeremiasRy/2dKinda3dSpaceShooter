@@ -15,7 +15,7 @@ public class Enemy : GameObject
     readonly int _endPointX;
     readonly int _speed;
 
-    Random _random = new();
+    readonly Random _random = new();
     public override void Move()
     {
         if (Z + _speed > 100)
@@ -24,22 +24,27 @@ public class Enemy : GameObject
             return;
         }
         Z += _speed;
-        var positions = GameState.CalculatePosition(_startPointY, _startPointX, _endPointY, _endPointX, Z);
+        int[] positions = GameState.CalculatePosition(_startPointY, _startPointX, _endPointY, _endPointX, Z);
         Y = positions[0];
         X = positions[1];
     }
     public override void Draw()
     {
+        HitBox.Clear();
         char[][] graphic = Graphics.GetGraphic(Z);
         for(int i = 0; i < graphic.Length; i++)
         {
             for(int j = 0; j < graphic[i].Length; j++)
             {
+                if (graphic[i][j] == ' ')
+                    continue;
                 if (CheckIfOnConsoleWindow(Top + i, Left + j))
+                {
                     ScreenBuffer.Draw(graphic[i][j], Top + i, Left + j);
+                    HitBox.Add(new int[2] { Top + i, Left + j });
+                }      
             }
         }
-
     }
     public Enemy(int id, IGraphics graphics) : base(id, graphics)
     {
