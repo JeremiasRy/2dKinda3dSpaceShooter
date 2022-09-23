@@ -8,12 +8,18 @@ namespace GameEngine;
 
 public class AimCursorGraphics : IGraphics
 {
-    public int Width { get; set; }
-    public int Height { get; set; }
-    public char MainSurface { get; set; }
+    public int Width => _graphic[0].Length;
+    public int Height => _graphic[1].Length;
 
-    public char[][] GetGraphic(int level)
+    char[][] _graphic;
+
+    public char[][] GetGraphic(int level) => _graphic;
+
+    public AimCursorGraphics()
     {
-        throw new NotImplementedException();
+        _graphic = new char[3][];
+        _graphic[0] = new char[3] { ' ', '\u2588', ' ' };
+        _graphic[1] = new char[3] { '\u2588', ' ', '\u2588' };
+        _graphic[2] = new char[3] { ' ', '\u2588', ' ' };
     }
 }

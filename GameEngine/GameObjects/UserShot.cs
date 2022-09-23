@@ -13,14 +13,14 @@ public class UserShot : GameObject
     readonly int _startPointX;
     readonly int _endPointY;
     readonly int _endPointX;
-    public override void Move()
+    public override void Move(int speed)
     {
-        if (Z - 2 < 0)
+        if (Z - 6 < 0)
         {
             Z = -1;
             return;
         }
-        Z -= 2;
+        Z -= 6;
     }
     public override void Draw()
     {

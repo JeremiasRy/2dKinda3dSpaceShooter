@@ -16,7 +16,7 @@ public class Enemy : GameObject
     readonly int _speed;
 
     readonly Random _random = new();
-    public override void Move()
+    public override void Move(int speed)
     {
         if (Z + _speed > 100)
         {
@@ -57,6 +57,6 @@ public class Enemy : GameObject
         _endPointY = _random.Next(Console.WindowHeight);
         _endPointX = _random.Next(Console.WindowWidth);
         UserControl = false;
-        _speed = _random.Next(1, 3);
+        _speed = _random.Next(1, 2);
     }
 }

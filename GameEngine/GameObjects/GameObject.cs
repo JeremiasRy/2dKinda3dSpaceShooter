@@ -46,7 +46,7 @@ public class GameObject : IGameObject
     {
 
     }
-    public virtual void Move()
+    public virtual void Move(int speed = 1)
     {
 
     }

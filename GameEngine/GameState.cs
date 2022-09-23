@@ -14,6 +14,7 @@ public static class GameState
     static public int Tick { get; set; }
     public static bool PlayerAlive { get; set; }
     readonly static SpaceShip _humanPlayer = new(0, new SpaceShipGraphics());
+    readonly static AimCursor _aimCursor = new (1, new AimCursorGraphics(), _humanPlayer);
 
     static List<GameObject> _gameObjects = new();
     public static int[] CalculatePosition(int startPointY, int startPointX, int endPointY, int endPointX, int z)
@@ -40,14 +41,18 @@ public static class GameState
     public static void AddHumanPlayer()
     {
         _gameObjects.Add(_humanPlayer);
+        _gameObjects.Add(_aimCursor);
+        _humanPlayer.AddAimCursorRef(_aimCursor);
     }
     public static void MovePlayer(int y, int x, int speed)
     {
+        _aimCursor.UserControl = true;
         _humanPlayer.ParseCoordinateInput(y, x, speed);
     }
+    public static void AimCursorControlToComputer() => _aimCursor.UserControl = false;
     public static void PlayerShoot(int id)
     {
-        _gameObjects.Add(new UserShot(id, _humanPlayer.Y, _humanPlayer.X, 100, CenterHeight, CenterWidth, new UserShotGraphics()));
+        _gameObjects.Add(new UserShot(id, _humanPlayer.Y, _humanPlayer.X, 100, _aimCursor.Y, _aimCursor.X, new UserShotGraphics()));
     }
     public static void CheckForObjectsOutOfRange()
     {

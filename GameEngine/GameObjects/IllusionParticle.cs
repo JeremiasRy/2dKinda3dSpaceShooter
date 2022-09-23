@@ -15,7 +15,7 @@ public class IllusionParticle : GameObject
     readonly int _endX;
     readonly int _speed;
 
-    public override void Move()
+    public override void Move(int speed)
     {
         if (Z + _speed > 100)
         {
@@ -33,7 +33,7 @@ public class IllusionParticle : GameObject
         if (CheckIfOnConsoleWindow(Y, X))
         {
             int grayness = Z < 15 ? 0 : Z / 15;
-            ScreenBuffer.Draw(CharacterArrays.GetParticle(grayness), Y, X);
+            ScreenBuffer.Draw(Graphics.GetGraphic(grayness)[0][0], Y, X);
         }
     }
     public IllusionParticle(int id, IGraphics graphics) : base(id, graphics)

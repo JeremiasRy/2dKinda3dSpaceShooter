@@ -8,6 +8,7 @@ namespace GameEngine;
 
 public class SpaceShip : GameObject
 {
+    AimCursor? _aimCursorRef;
     int _moveToX;
     int _moveToY;
 
@@ -16,17 +17,65 @@ public class SpaceShip : GameObject
         if (yDirection == 0)
         {
             _moveToY = Y;
-            _moveToX = xDirection < 0 ? X - speed : X + speed;
+            switch (xDirection)
+            {
+                case < 0:
+                    {
+                        _moveToX = X - speed;
+                        if (_aimCursorRef is not null)
+                        {
+                            _aimCursorRef.ChangeDirection(Direction.Left);
+                            _aimCursorRef.Move(speed + 1);
+
+                        }
+                    }
+                    break;
+                case > 0:
+                    {
+                        _moveToX = X + speed;
+                        if (_aimCursorRef is not null)
+                        {
+                            _aimCursorRef.ChangeDirection(Direction.Right);
+                            _aimCursorRef.Move(speed + 1);
+                        }
+                            
+                    }
+                    break;
+            }
         }
         else if (xDirection == 0)
         {
             _moveToX = X;
-            _moveToY = yDirection < 0 ? Y - speed : Y + speed;
+            switch (yDirection)
+            {
+                case < 0:
+                    {
+                        _moveToY = Y - speed;
+                        if (_aimCursorRef is not null)
+                        {
+                            _aimCursorRef.ChangeDirection(Direction.Up);
+                            _aimCursorRef.Move(speed + 1);
+                        }
+                            
+                    }
+                    break;
+                case > 0:
+                    {
+                        _moveToY = Y + speed;
+                        if (_aimCursorRef is not null)
+                        {
+                            _aimCursorRef.ChangeDirection(Direction.Down);
+                            _aimCursorRef.Move(speed +1);
+                        }
+                            
+                    }
+                    break;
+            }
         }
         if (CheckIfOnConsoleWindow(_moveToY - Graphics.Height / 2, _moveToX - Graphics.Width / 2) && CheckIfOnConsoleWindow(_moveToY + Graphics.Height / 2, _moveToX + Graphics.Width / 2))
-            Move();
+            Move(speed);
     }
-    public override void Move()
+    public override void Move(int speed)
     {
         Y = _moveToY;
         X = _moveToX;
@@ -41,8 +90,8 @@ public class SpaceShip : GameObject
                     ScreenBuffer.Draw('#', Top + i, Left + j);
             }
         }
-        
     }
+    public void AddAimCursorRef(AimCursor aimCursor) => _aimCursorRef = aimCursor;
     public SpaceShip(int id, IGraphics graphics) : base(id, graphics) 
     {
         X = Console.WindowWidth / 2;

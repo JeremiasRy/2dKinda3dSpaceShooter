@@ -8,14 +8,19 @@ namespace GameEngine;
 
 public class IllusionGraphics : IGraphics
 {
-    public int Width { get; set; } = 1;
-    public int Height { get; set; } = 1;
-    public char MainSurface { get; set; }
-    public char Shadow { get; set; }
+    public int Width => _graphic[0].Length;
+    public int Height => _graphic.Length;
 
+    readonly char[][] _graphic;
     public char[][] GetGraphic(int level)
     {
-        throw new NotImplementedException();
+        _graphic[0][0] = CharacterArrays.GetParticle(level);
+        return _graphic;
+    }
 
+    public IllusionGraphics()
+    {
+        _graphic = new char[1][];
+        _graphic[0] = new char[1];
     }
 }

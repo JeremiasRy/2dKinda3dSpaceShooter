@@ -23,6 +23,22 @@ public class EnemyGraphics : IGraphics
         return _graphic;
     }
     readonly List<Action> _graphics;
+    public EnemyGraphics()
+    {
+        _graphic = new char[1][];
+        _graphic[0] = new char[1];
+        _graphics = new List<Action>()
+        {
+            () => Graphic8(),
+            () => Graphic7(),
+            () => Graphic6(),
+            () => Graphic5(),
+            () => Graphic4(),
+            () => Graphic3(),
+            () => Graphic2(),
+            () => Graphic1(),
+        };
+    }
     void Graphic1()
     {
         _graphic = new char[10][];
@@ -62,7 +78,7 @@ public class EnemyGraphics : IGraphics
     void Graphic4()
     {
         _graphic = new char[5][];
-        _graphic[0] = new char[12] { ' ', ' ', ' ', ' ', ' ', '/', (char)92, ' ', ' ', ' ', ' ', ' '};
+        _graphic[0] = new char[12] { ' ', ' ', ' ', ' ', ' ', '/', (char)92, ' ', ' ', ' ', ' ', ' ' };
         _graphic[1] = new char[12] { ' ', Rotate, ' ', ' ', ' ', '|', '|', ' ', ' ', ' ', Rotate, ' ' };
         _graphic[2] = new char[12] { '<', '|', '>', '-', '[', Middle, Middle, ']', '-', '<', '|', '>' };
         _graphic[3] = new char[12] { ' ', ' ', ' ', '<', ' ', '|', '|', ' ', '>', ' ', ' ', ' ' };
@@ -93,21 +109,5 @@ public class EnemyGraphics : IGraphics
         _graphic = new char[2][];
         _graphic[0] = new char[2] { '/', (char)92, };
         _graphic[1] = new char[2] { Middle, Middle, };
-    }
-    public EnemyGraphics()
-    {
-        _graphic = new char[1][];
-        _graphic[0] = new char[1];
-        _graphics = new List<Action>()
-        {
-            () => Graphic8(),
-            () => Graphic7(),
-            () => Graphic6(),
-            () => Graphic5(),
-            () => Graphic4(),
-            () => Graphic3(),
-            () => Graphic2(),
-            () => Graphic1(),
-        };
     }
 }
