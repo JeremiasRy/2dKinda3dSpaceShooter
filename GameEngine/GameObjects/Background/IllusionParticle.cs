@@ -13,16 +13,16 @@ public class IllusionParticle : GameObject
     readonly int _startPointX;
     readonly int _endY;
     readonly int _endX;
-    readonly int _speed;
 
     public override void Move(int speed)
     {
-        if (Z + _speed > 100)
+        speed += _random.Next(1, 4);
+        if (Z + speed > 100)
         {
             Z = 101;
             return;
         }
-        Z += _speed;
+        Z += speed;
         var positions = GameState.CalculatePosition(_startPointY, _startPointX, _endY, _endX, Z);
         Y = positions[0];
         X = positions[1];
@@ -64,6 +64,5 @@ public class IllusionParticle : GameObject
             _endY = Console.WindowHeight;
             _endX = X < Console.WindowWidth / 2 ? _random.Next(Console.WindowWidth / 2) : _random.Next(Console.WindowWidth / 2, Console.WindowWidth);
         }
-        _speed = _random.Next(2, 5);
     }
 }

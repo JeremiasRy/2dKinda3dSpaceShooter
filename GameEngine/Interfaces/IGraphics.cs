@@ -10,6 +10,5 @@ public interface IGraphics
 {
     public int Width { get; }
     public int Height { get; }
-
     public char[][] GetGraphic(int level);
 }

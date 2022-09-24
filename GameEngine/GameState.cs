@@ -13,8 +13,10 @@ public static class GameState
     static public readonly int CenterWidth = Console.WindowWidth / 2;
     static public int Tick { get; set; }
     public static bool PlayerAlive { get; set; }
-    readonly static SpaceShip _humanPlayer = new(0, new SpaceShipGraphics());
-    readonly static AimCursor _aimCursor = new (1, new AimCursorGraphics(), _humanPlayer);
+    readonly static AimCursor _aimCursor = new (0, new AimCursorGraphics());
+    readonly static Cannon _cannonLeft = new(Place.Left, 1, new CannonGraphics(), _aimCursor);
+    readonly static Cannon _cannonRight = new(Place.Right, 2, new CannonGraphics(), _aimCursor);
+    static bool _leftShot = true;
 
     static List<GameObject> _gameObjects = new();
     public static int[] CalculatePosition(int startPointY, int startPointX, int endPointY, int endPointX, int z)
@@ -30,30 +32,30 @@ public static class GameState
             yUp ? (int)(startPointY - yDifference * _percent) : (int)(startPointY + yDifference * _percent), 
             xLeft ? (int)(startPointX - xDifference * _percent) : (int)(startPointX + xDifference * _percent)  };
     }
-    public static void AddEnemyObject(int id)
-    {
-        _gameObjects.Add(new Enemy(id, new EnemyGraphics()));
-    }
-    public static void AddIllusionParticle(int id)
-    {
-        _gameObjects.Add(new IllusionParticle(id, new IllusionGraphics()));
-    }
+    public static void AddEnemyObject(int id) => _gameObjects.Add(new Enemy(id, new EnemyGraphics()));
+    public static void AddIllusionParticle(int id) => _gameObjects.Add(new IllusionParticle(id, new IllusionGraphics()));
     public static void AddHumanPlayer()
     {
-        _gameObjects.Add(_humanPlayer);
         _gameObjects.Add(_aimCursor);
-        _humanPlayer.AddAimCursorRef(_aimCursor);
-    }
-    public static void MovePlayer(int y, int x, int speed)
-    {
-        _aimCursor.UserControl = true;
-        _humanPlayer.ParseCoordinateInput(y, x, speed);
-    }
+        _gameObjects.Add(_cannonLeft);
+        _gameObjects.Add(_cannonRight);
+    } 
+    public static void MovePlayer(int y, int x, int speed) => _aimCursor.ParseCoordinateInput(y, x, speed);
     public static void AimCursorControlToComputer() => _aimCursor.UserControl = false;
     public static void PlayerShoot(int id)
     {
-        _gameObjects.Add(new UserShot(id, _humanPlayer.Y, _humanPlayer.X, 100, _aimCursor.Y, _aimCursor.X, new UserShotGraphics()));
-    }
+
+        if (_leftShot)
+        {
+            _gameObjects.Add(new UserShot(id, _cannonLeft.Y, _cannonLeft.X, 100, _aimCursor.Y, _aimCursor.X, new UserShotGraphics(CharacterArrays.GetShadow(4))));
+            _leftShot = false;
+        } else
+        {
+            _gameObjects.Add(new UserShot(id, _cannonRight.Y, _cannonRight.X, 100, _aimCursor.Y, _aimCursor.X, new UserShotGraphics(CharacterArrays.GetShadow(4))));
+            _leftShot = true;
+        }
+
+    } 
     public static void CheckForObjectsOutOfRange()
     {
         List<int> remThese = new();

@@ -13,17 +13,16 @@ public class Enemy : GameObject
     readonly int _startPointX;
     readonly int _endPointY;
     readonly int _endPointX;
-    readonly int _speed;
 
     readonly Random _random = new();
     public override void Move(int speed)
     {
-        if (Z + _speed > 100)
+        if (Z + speed > 100)
         {
             Z = 101;
             return;
         }
-        Z += _speed;
+        Z += speed;
         int[] positions = GameState.CalculatePosition(_startPointY, _startPointX, _endPointY, _endPointX, Z);
         Y = positions[0];
         X = positions[1];
@@ -57,6 +56,5 @@ public class Enemy : GameObject
         _endPointY = _random.Next(Console.WindowHeight);
         _endPointX = _random.Next(Console.WindowWidth);
         UserControl = false;
-        _speed = _random.Next(1, 2);
     }
 }

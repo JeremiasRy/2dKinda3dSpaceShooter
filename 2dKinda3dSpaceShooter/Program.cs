@@ -10,7 +10,7 @@ MoveWindowTopLeftCorner();
 ScreenBuffer.Initialize();
 Console.CursorVisible = false;
 
-int enemyIds = 2;
+int enemyIds = 3;
 int tick = 0;
 int consecutiveKeyPresses = 0;
 Task runGame = new(RunGame);
@@ -25,20 +25,20 @@ void UserInput() // negative integer is left or up, 0 means no movement on that 
     if (KeyboardKeyDown())
     {
         consecutiveKeyPresses++;
-        int speed = consecutiveKeyPresses < 10 ? 1 : consecutiveKeyPresses / 10 > 2 ? 2 : consecutiveKeyPresses / 10;
+        int speed = consecutiveKeyPresses < 10 ? 1 : consecutiveKeyPresses / 10 > 3 ? 3 : consecutiveKeyPresses / 10;
         if (CheckKeyPress(ConsoleKey.UpArrow))
-            MovePlayer(-1, 0, 1);
+            MovePlayer(-1, 0, speed);
         if (CheckKeyPress(ConsoleKey.LeftArrow))
-            MovePlayer(0, -1, 2);
+            MovePlayer(0, -1, speed + 1);
         if (CheckKeyPress(ConsoleKey.RightArrow))
-            MovePlayer(0, 1, 2);
+            MovePlayer(0, 1, speed + 1);
         if (CheckKeyPress(ConsoleKey.DownArrow))
-            MovePlayer(1, 0, 1);
+            MovePlayer(1, 0, speed);
         if (CheckKeyPress(ConsoleKey.Spacebar))
-            PlayerShoot(tick);
+            if (consecutiveKeyPresses % 7 == 0 || consecutiveKeyPresses == 1)
+                PlayerShoot(tick);
         return;
     }
-    AimCursorControlToComputer();
     consecutiveKeyPresses = 0;
 }
 
@@ -50,7 +50,7 @@ void RunGame()
     {
         tick++;
         Tick = tick;
-        if (tick % 20 == 0)
+        if (tick % 40 == 0)
         {
             enemyIds++;
             AddEnemyObject(enemyIds);
@@ -58,7 +58,7 @@ void RunGame()
         {
             AddIllusionParticle(tick);
         }
-        Thread.Sleep(5);
+        Thread.Sleep(20);
         GameTick();
         UserInput();
         ScreenBuffer.DrawText($"Tick {tick}, EnemyCount: {enemyIds}, consecutiveKeyPresses: {consecutiveKeyPresses}", 0, 0);

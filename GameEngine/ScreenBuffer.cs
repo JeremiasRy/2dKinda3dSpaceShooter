@@ -23,7 +23,7 @@ namespace GameEngine
         }
         public static void Draw(char block, int y, int x)
         {
-            _screenBufferArray[y][x] = block;
+              _screenBufferArray[y][x] = block;
         }
         public static void DrawText(string text, int y, int x)
         {
