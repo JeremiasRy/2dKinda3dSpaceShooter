@@ -13,6 +13,8 @@ public static class GameState
     static public readonly int CenterWidth = Console.WindowWidth / 2;
     static public int Tick { get; set; }
     public static bool PlayerAlive { get; set; }
+    static public int EnemiesDestroyed { get; set; } = 0;
+    static public int EnemiesEscaped { get; set; } = 0;
     readonly static AimCursor _aimCursor = new (0, new AimCursorGraphics());
     readonly static Cannon _cannonLeft = new(Place.Left, 1, new CannonGraphics(), _aimCursor);
     readonly static Cannon _cannonRight = new(Place.Right, 2, new CannonGraphics(), _aimCursor);
@@ -56,6 +58,46 @@ public static class GameState
         }
 
     } 
+    public static void CheckForHit()
+    {
+        var enemys = _gameObjects.Where(obj => obj is Enemy).ToList();
+        var shots = _gameObjects.Where(obj => obj is UserShot).ToList();
+        List<int> collisions = new List<int>();
+
+        if (shots.Count == 0)
+            return;
+
+        foreach (var enemy in enemys)
+        {
+            if (shots.Any(shot => Math.Abs(shot.Z - enemy.Z) < 75))
+            {
+                var hits = shots.Where(shot => Math.Abs(shot.Z - enemy.Z) < 75);
+                foreach (var hit in hits)
+                {
+                    foreach (int[] enemyHitBox in enemy.HitBox)
+                    {
+                        foreach (int[] shotHitBox in hit.HitBox)
+                        {
+                            if (enemyHitBox[0] == shotHitBox[0] && enemyHitBox[1] == shotHitBox[1])
+                            {
+                                collisions.Add(enemy.Id);
+                                collisions.Add(hit.Id);
+                            }
+
+                        }
+                    }
+
+                }
+
+            }
+        }
+        if (collisions.Count > 0)
+        {
+            _gameObjects = _gameObjects.Where(obj => !collisions.Any(collisionObj => collisionObj == obj.Id)).ToList();
+            EnemiesDestroyed++;
+        }
+
+    }
     public static void CheckForObjectsOutOfRange()
     {
         List<int> remThese = new();
@@ -64,6 +106,7 @@ public static class GameState
             if (obj.Z == -1 || obj.Z == 101)
                 remThese.Add(obj.Id);
         }
+        EnemiesEscaped += _gameObjects.Where(obj => obj is Enemy && remThese.Any(remObj => remObj == obj.Id)).Count();
         _gameObjects = _gameObjects.Where(obj => !remThese.Any(remObj => remObj == obj.Id)).ToList();
     }
     public static void GameTick()
@@ -73,6 +116,7 @@ public static class GameState
             if (!obj.UserControl)
                 obj.Move();           
         }
+        CheckForHit();
         CheckForObjectsOutOfRange();
             
         _gameObjects.Where(x => x is IllusionParticle).ToList().ForEach(obj => obj.Draw());

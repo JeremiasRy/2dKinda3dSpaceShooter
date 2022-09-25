@@ -35,7 +35,7 @@ void UserInput() // negative integer is left or up, 0 means no movement on that 
         if (CheckKeyPress(ConsoleKey.DownArrow))
             MovePlayer(1, 0, speed);
         if (CheckKeyPress(ConsoleKey.Spacebar))
-            if (consecutiveKeyPresses % 7 == 0 || consecutiveKeyPresses == 1)
+            if (consecutiveKeyPresses % 4 == 0 || consecutiveKeyPresses == 1)
                 PlayerShoot(tick);
         return;
     }
@@ -61,7 +61,7 @@ void RunGame()
         Thread.Sleep(20);
         GameTick();
         UserInput();
-        ScreenBuffer.DrawText($"Tick {tick}, EnemyCount: {enemyIds}, consecutiveKeyPresses: {consecutiveKeyPresses}", 0, 0);
+        ScreenBuffer.DrawText($"Tick {tick}, EnemyCount: {enemyIds}, consecutiveKeyPresses: {consecutiveKeyPresses}, Enemies destroyed: {EnemiesDestroyed}, Enemies escaped: {EnemiesEscaped}", 0, 0);
         ScreenBuffer.DrawScreen();
     }
 }

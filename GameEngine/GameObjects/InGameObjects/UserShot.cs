@@ -18,7 +18,7 @@ public class UserShot : GameObject
     int ShadowLeft(int x) => x - Graphics.Width / 2;
     public override void Move(int speed)
     {
-        speed += 4;
+        speed += 3;
         if (Z - speed < 0)
         {
             Z = -1;
@@ -31,29 +31,33 @@ public class UserShot : GameObject
     }
     public override void Draw()
     {
+        HitBox.Clear();
         char[][] graphic = Graphics.GetGraphic(Z);
         for (int i = 0; i < Graphics.Height; i++)
         {
             for (int j = 0; j < Graphics.Width; j++)
             {
                 if (CheckIfOnConsoleWindow(Top + i, Left + j))
+                {
                     ScreenBuffer.Draw(graphic[i][j], Top + i, Left + j);
+                    HitBox.Add(new int[2] { Top + i, Left + j });
+                }
             }
         }
-        int tempZ = Z + 5;
+        int tempZ = Z + 4;
 
-        for (int shadow = 3; shadow >= 0; shadow--)
+        for (int shadow = 2; shadow >= 0; shadow--) // Korjaa tämä!
         {
             var positions = GameState.CalculatePosition(_endPointY, _endPointX, _startPointY, _startPointX, tempZ);
             for (int i = 0; i < Graphics.Height; i++)
             {
-                for(int j = 0; j < Graphics.Width; j++)
+                for (int j = 0; j < Graphics.Width; j++)
                 {
                     if (CheckIfOnConsoleWindow(ShadowTop(positions[0] + i), ShadowLeft(positions[1] + j)))
                         ScreenBuffer.Draw(CharacterArrays.GetShadow(shadow), ShadowTop(positions[0]) + i, ShadowLeft(positions[1]) + j);
                 }
             }
-            tempZ += 5;
+            tempZ += 4;
         }
 
     }
