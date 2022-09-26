@@ -12,7 +12,7 @@ public class UserShotGraphics : IGraphics
     public int Height => _graphic.Length;
 
     static char[][] _graphic = Array.Empty<char[]>();
-    public static char Element { get; set; }
+    static char Element { get; set; } = '\u2588';
 
     readonly List<Action> actions = new()
     {
@@ -52,9 +52,5 @@ public class UserShotGraphics : IGraphics
     {
         _graphic = new char[1][];
         _graphic[0] = new char[1] { Element, };
-    }
-    public UserShotGraphics(char el)
-    {
-        Element = el;
     }
 }

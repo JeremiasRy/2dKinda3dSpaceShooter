@@ -33,34 +33,32 @@ public class UserShot : GameObject
     {
         HitBox.Clear();
         char[][] graphic = Graphics.GetGraphic(Z);
+        List<int[]> points = new()
+        {
+        GameState.CalculatePosition(_endPointY, _endPointX, _startPointY, _startPointX, Z + 12),
+        GameState.CalculatePosition(_endPointY, _endPointX, _startPointY, _startPointX, Z + 8),
+        GameState.CalculatePosition(_endPointY, _endPointX, _startPointY, _startPointX, Z + 4),
+        };
         for (int i = 0; i < Graphics.Height; i++)
         {
             for (int j = 0; j < Graphics.Width; j++)
             {
-                if (CheckIfOnConsoleWindow(Top + i, Left + j))
+                if (!CheckIfOnConsoleWindow(Top + i, Left + j))
+                    return;
+
+                ScreenBuffer.Draw(graphic[i][j], Top + i, Left + j);
+                HitBox.Add(new int[2] { Top + i, Left + j });
+
+                for (int shadow = 2; shadow >= 0; shadow--)
                 {
-                    ScreenBuffer.Draw(graphic[i][j], Top + i, Left + j);
-                    HitBox.Add(new int[2] { Top + i, Left + j });
+                    int[] coordinatePoints = points.ElementAt(shadow);
+                    if (CheckIfOnConsoleWindow(ShadowTop(coordinatePoints[0]) - i, ShadowLeft(coordinatePoints[1]) + j))
+                        ScreenBuffer.Draw(CharacterArrays.GetShadow(shadow), coordinatePoints[0] - i, coordinatePoints[1] + j);   
                 }
             }
         }
-        int tempZ = Z + 4;
-
-        for (int shadow = 2; shadow >= 0; shadow--) // Korjaa tämä!
-        {
-            var positions = GameState.CalculatePosition(_endPointY, _endPointX, _startPointY, _startPointX, tempZ);
-            for (int i = 0; i < Graphics.Height; i++)
-            {
-                for (int j = 0; j < Graphics.Width; j++)
-                {
-                    if (CheckIfOnConsoleWindow(ShadowTop(positions[0] + i), ShadowLeft(positions[1] + j)))
-                        ScreenBuffer.Draw(CharacterArrays.GetShadow(shadow), ShadowTop(positions[0]) + i, ShadowLeft(positions[1]) + j);
-                }
-            }
-            tempZ += 4;
-        }
-
     }
+
     public UserShot(int id, int y, int x, int z, int endY, int endX, IGraphics graphics) : base(id, graphics)
     {
         Id = id;
@@ -72,7 +70,5 @@ public class UserShot : GameObject
         _endPointY = endY;
         _endPointX = endX;
         UserControl = false;
-
-
     }
 }

@@ -25,17 +25,20 @@ void UserInput() // negative integer is left or up, 0 means no movement on that 
     if (KeyboardKeyDown())
     {
         consecutiveKeyPresses++;
-        int speed = consecutiveKeyPresses < 10 ? 1 : consecutiveKeyPresses / 10 > 3 ? 3 : consecutiveKeyPresses / 10;
+        int speed = consecutiveKeyPresses < 10 ? 2 : consecutiveKeyPresses / 10 > 3 ? 3 : consecutiveKeyPresses / 10;
+        if (OnTarget)
+            speed = 1;
+
         if (CheckKeyPress(ConsoleKey.UpArrow))
-            MovePlayer(-1, 0, speed);
+            MoveCursor(-1, 0, speed);
         if (CheckKeyPress(ConsoleKey.LeftArrow))
-            MovePlayer(0, -1, speed + 1);
+            MoveCursor(0, -1, speed + 1);
         if (CheckKeyPress(ConsoleKey.RightArrow))
-            MovePlayer(0, 1, speed + 1);
+            MoveCursor(0, 1, speed + 1);
         if (CheckKeyPress(ConsoleKey.DownArrow))
-            MovePlayer(1, 0, speed);
+            MoveCursor(1, 0, speed);
         if (CheckKeyPress(ConsoleKey.Spacebar))
-            if (consecutiveKeyPresses % 4 == 0 || consecutiveKeyPresses == 1)
+            if (consecutiveKeyPresses % 10 == 0 || consecutiveKeyPresses == 1)
                 PlayerShoot(tick);
         return;
     }

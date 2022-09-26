@@ -10,6 +10,7 @@ public class AimCursor : GameObject
 {
     int _moveToX;
     int _moveToY;
+    char[][] Graphic => Graphics.GetGraphic(GameState.OnTarget ? 1 : 0);
 
     public void ParseCoordinateInput(int yDirection, int xDirection, int speed)
     {
@@ -45,12 +46,18 @@ public class AimCursor : GameObject
     }
     public override void Draw()
     {
+        var graphic = Graphic;
+        HitBox.Clear();
         for (int i = 0; i < Graphics.Height; i++)
         {
             for (int j = 0; j < Graphics.Width; j++)
             {
+                HitBox.Add(new int[2] { Top + i, Left + j });
+                if (graphic[i][j] == ' ')
+                    continue;
+
                 if (CheckIfOnConsoleWindow(Top + i, Left + j))
-                    ScreenBuffer.Draw(Graphics.GetGraphic(1)[i][j], Top + i, Left + j);
+                    ScreenBuffer.Draw(graphic[i][j], Top + i, Left + j);        
             }
         }
     }
@@ -60,5 +67,6 @@ public class AimCursor : GameObject
         Y = Console.WindowHeight / 2;
         Z = 100;
         UserControl = true;
+        graphics.GetGraphic(0);
     }
 }
