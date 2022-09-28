@@ -8,7 +8,7 @@ namespace GameEngine;
 
 public class Explosion : GameObject
 {
-    List<int[]> _areaOfExplosion;
+    readonly List<int[]> _areaOfExplosion;
     public override void Draw()
     {
         foreach (var pos in _areaOfExplosion)

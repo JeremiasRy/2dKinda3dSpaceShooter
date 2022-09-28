@@ -10,7 +10,7 @@ MoveWindowTopLeftCorner();
 ScreenBuffer.Initialize();
 Console.CursorVisible = false;
 
-int enemyIds = 3;
+int enemyIds = 5;
 int tick = 0;
 int consecutiveKeyPresses = 0;
 Task runGame = new(RunGame);
@@ -59,12 +59,12 @@ void RunGame()
             AddEnemyObject(enemyIds);
         } else if (tick % 2 == 0)
         {
-            AddIllusionParticle(tick);
+            AddIllusionParticle(tick + 5);
         }
         Thread.Sleep(20);
         GameTick();
         UserInput();
-        ScreenBuffer.DrawText($"Tick {tick}, EnemyCount: {enemyIds}, consecutiveKeyPresses: {consecutiveKeyPresses}, Enemies destroyed: {EnemiesDestroyed}, Enemies escaped: {EnemiesEscaped}", 0, 0);
+        ScreenBuffer.DrawText($"Tick {tick}, EnemyCount: {enemyIds - 4}, consecutiveKeyPresses: {consecutiveKeyPresses}, Enemies destroyed: {EnemiesDestroyed}, Enemies escaped: {EnemiesEscaped}", Console.WindowHeight - 1, Console.WindowWidth / 4);
         ScreenBuffer.DrawScreen();
     }
 }
