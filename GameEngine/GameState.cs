@@ -84,6 +84,7 @@ public static class GameState
                     continue;
                 collisions.Add(hit.Id);
                 collisions.Add(enemy.Id);
+                AddExplosion(Tick, enemy.Z, enemy.HitBox);
             }
         }
         if (collisions.Count > 0)
@@ -93,13 +94,15 @@ public static class GameState
         }
 
     }
+    static void AddExplosion(int id, int z, List<int[]> area) => _gameObjects.Add(new Explosion(area, new ExplosionGraphics(), id, z));
     public static void CheckForObjectsOutOfRange()
     {
         List<int> remThese = new();
         foreach(var obj in _gameObjects)
         {
-            if (obj.Z == -1 || obj.Z == 101)
+            if (obj.Z == -1 || obj.Z == 101 || (obj is Explosion && Tick - obj.Id > 20))
                 remThese.Add(obj.Id);
+
         }
         EnemiesEscaped += _gameObjects.Where(obj => obj is Enemy && remThese.Any(remObj => remObj == obj.Id)).Count();
         _gameObjects = _gameObjects.Where(obj => !remThese.Any(remObj => remObj == obj.Id)).ToList();
@@ -111,11 +114,11 @@ public static class GameState
             if (!obj.UserControl)
                 obj.Move();           
         }
+
         CheckForHit();
         CheckForObjectsOutOfRange();
             
         _gameObjects.Where(x => x is IllusionParticle).ToList().ForEach(obj => obj.Draw());
-
         _gameObjects.Where(x => x is not IllusionParticle).OrderBy(obj => obj.Z).ToList().ForEach(obj => obj.Draw());
     }
 }

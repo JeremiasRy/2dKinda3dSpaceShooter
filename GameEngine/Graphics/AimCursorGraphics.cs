@@ -50,51 +50,51 @@ public class AimCursorGraphics : IGraphics
     {
         _graphic = new char[5][];
         _graphic[0] = new char[5] { ' ', ' ', ' ', ' ', ' ' };
-        _graphic[1] = new char[5] { ' ', ' ', '|', ' ', ' ' };
-        _graphic[2] = new char[5] { ' ', '<', ' ', '>', ' ' };
-        _graphic[3] = new char[5] { ' ', ' ', '|', ' ', ' ' };
+        _graphic[1] = new char[5] { ' ', ' ', '@', ' ', ' ' };
+        _graphic[2] = new char[5] { ' ', '@', ' ', '@', ' ' };
+        _graphic[3] = new char[5] { ' ', ' ', '@', ' ', ' ' };
         _graphic[4] = new char[5] { ' ', ' ', ' ', ' ', ' ' };
     }
     static void Graphic2()
     {
         _graphic = new char[5][];
-        _graphic[0] = new char[5] { ' ', ' ', '|', ' ', ' ' };
+        _graphic[0] = new char[5] { ' ', ' ', '@', ' ', ' ' };
         _graphic[1] = new char[5] { ' ', (char)92, ' ', '/', ' ' };
-        _graphic[2] = new char[5] { '<', ' ', ' ', ' ', '>' };
+        _graphic[2] = new char[5] { '@', ' ', ' ', ' ', '@' };
         _graphic[3] = new char[5] { ' ', '/', ' ', (char)92, ' ' };
-        _graphic[4] = new char[5] { ' ', ' ', '|', ' ', ' ' };
+        _graphic[4] = new char[5] { ' ', ' ', '@', ' ', ' ' };
     }
     static void Graphic3()
     {
         _graphic = new char[7][];
-        _graphic[0] = new char[7] { ' ', ' ', ' ', '|', ' ', ' ', ' ' };
+        _graphic[0] = new char[7] { ' ', ' ', ' ', '@', ' ', ' ', ' ' };
         _graphic[1] = new char[7] { ' ', (char)92, ' ', ' ', '/', ' ', ' ' };
         _graphic[2] = new char[7] { ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
-        _graphic[3] = new char[7] { '<', ' ', ' ', ' ', ' ', ' ', '>' };
+        _graphic[3] = new char[7] { '@', ' ', ' ', ' ', ' ', ' ', '@' };
         _graphic[4] = new char[7] { ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
         _graphic[5] = new char[7] { ' ', '/', ' ', ' ', ' ', (char)92, ' ' };
-        _graphic[6] = new char[7] { ' ', ' ', ' ', '|', ' ', ' ', ' ' };
+        _graphic[6] = new char[7] { ' ', ' ', ' ', '@', ' ', ' ', ' ' };
     }
     static void Graphic4()
     {
         _graphic = new char[9][];
-        _graphic[0] = new char[9] { ' ', ' ', ' ', ' ', '|', ' ', ' ', ' ', ' ' };
+        _graphic[0] = new char[9] { ' ', ' ', ' ', ' ', '@', ' ', ' ', ' ', ' ' };
         _graphic[1] = new char[9] { ' ', (char)92, ' ', ' ', ' ', ' ', ' ', '/', ' ' };
         _graphic[2] = new char[9] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
         _graphic[3] = new char[9] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
-        _graphic[4] = new char[9] { '<', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '>' };
+        _graphic[4] = new char[9] { '@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '@' };
         _graphic[5] = new char[9] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
         _graphic[6] = new char[9] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
         _graphic[7] = new char[9] { ' ', '/', ' ', ' ', ' ', ' ', ' ', (char)92, ' ' };
-        _graphic[8] = new char[9] { ' ', ' ', ' ', ' ', '|', ' ', ' ', ' ', ' ' };
+        _graphic[8] = new char[9] { ' ', ' ', ' ', ' ', '@', ' ', ' ', ' ', ' ' };
     }
     static void Graphic5()
     {
         _graphic = new char[5][];
-        _graphic[0] = new char[5] { ' ', ' ', '|', ' ', ' ' };
+        _graphic[0] = new char[5] { ' ', ' ', '@', ' ', ' ' };
         _graphic[1] = new char[5] { ' ', ' ', ' ', ' ', ' ' };
-        _graphic[2] = new char[5] { '<', ' ', ' ', ' ', '>' };
+        _graphic[2] = new char[5] { '@', ' ', ' ', ' ', '@' };
         _graphic[3] = new char[5] { ' ', ' ', ' ', ' ', ' ' };
-        _graphic[4] = new char[5] { ' ', ' ', '|', ' ', ' ' };
+        _graphic[4] = new char[5] { ' ', ' ', '@', ' ', ' ' };
     }
 }

@@ -38,7 +38,7 @@ void UserInput() // negative integer is left or up, 0 means no movement on that 
         if (CheckKeyPress(ConsoleKey.DownArrow))
             MoveCursor(1, 0, speed);
         if (CheckKeyPress(ConsoleKey.Spacebar))
-            if (consecutiveKeyPresses % 10 == 0 || consecutiveKeyPresses == 1)
+            if (consecutiveKeyPresses % 5 == 0 || consecutiveKeyPresses == 1)
                 PlayerShoot(tick);
         return;
     }
